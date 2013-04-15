@@ -19,20 +19,22 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.SidedProxy;
 import fisherman77.glacierice.client.GlacierIceClientProxy;
+import fisherman77.glacierice.common.biomes.BiomeGenGlacier;
 import fisherman77.glacierice.common.blocks.BlockBlueGlacierIce;
 import fisherman77.glacierice.common.blocks.BlockGreenGlacierIce;
-import fisherman77.glacierice.common.gen.BiomeGenGlacier;
-import fisherman77.glacierice.common.handlers.*;
+import fisherman77.glacierice.common.config.GlacierIceConfigCore;
 import fisherman77.glacierice.common.tabs.TabGlacierIce;
+import fisherman77.glacierice.common.handlers.GlacierIceClientPacketHandler;
+import fisherman77.glacierice.common.handlers.GlacierIceServerPacketHandler;
 
 @NetworkMod(clientSideRequired=true,serverSideRequired=true, //Whether client side and server side are needed
-clientPacketHandlerSpec = @SidedPacketHandler(channels = {"GlacierIce" }, packetHandler = GlacierIceClientPacketHandler.class), //For clientside packet handling
-serverPacketHandlerSpec = @SidedPacketHandler(channels = {}, packetHandler = GlacierIceServerPacketHandler.class)) //For serverside packet handling
+clientPacketHandlerSpec = @SidedPacketHandler(channels = {"GlacierIce"}, packetHandler = GlacierIceClientPacketHandler.class), //For clientside packet handling
+serverPacketHandlerSpec = @SidedPacketHandler(channels = {"GlacierIce"}, packetHandler = GlacierIceServerPacketHandler.class)) //For serverside packet handling
 
 //==========
 //Mod Basics
 //==========
-@Mod(modid="GlacierIce",name="Glacier Ice",version="5.5")
+@Mod(modid="GlacierIce",name="Glacier Ice",version="Release")
 
 public class GlacierIce {
 
@@ -49,8 +51,19 @@ public static GlacierIceCommonProxy proxy;
 	public static CreativeTabs tabGlacierIce = new TabGlacierIce(CreativeTabs.getNextID(),"GlacierIce"); //Our custom creative tab's object
 
 //BLOCKS (LIST)
-	public static Block BlueGlacierIce = new BlockBlueGlacierIce(160);
-	public static Block GreenGlacierIce = new BlockGreenGlacierIce(161);
+	public static Block BlueGlacierIce;
+	public static Block GreenGlacierIce;
+	public static BiomeGenBase GlacierBiome;
+	
+@PreInit
+public void PreInit(FMLPreInitializationEvent e)
+	{
+		GlacierIceConfigCore cc = new GlacierIceConfigCore();
+		GlacierIceConfigCore.loadConfig(e);
+		
+		BlueGlacierIce = new BlockBlueGlacierIce(cc.blockBlueIceID).setUnlocalizedName("BlueIce");
+		GreenGlacierIce = new BlockGreenGlacierIce(cc.blockGreenIceID).setUnlocalizedName("GreenIce");
+	}
 
 	
 @Init
@@ -63,6 +76,13 @@ public void InitGlacierIce(FMLInitializationEvent event){ //Your main initializa
 	proxy.registerBlocks(); //Calls the registerBlocks method
 	
 //BIOME
-	//GameRegistry.addBiome(GlacierBiome);
+	if(GlacierIceConfigCore.GlacierBiome == true){
+		GlacierBiome = new BiomeGenGlacier(65);
+		GameRegistry.addBiome(GlacierBiome);
+		System.out.println("[Glacier Ice] Glacier Biome enabled.");
+	}
+	else{
+		System.out.println("[Glacier Ice] Glacier Biome not enabled.");
+	}
 }
 }

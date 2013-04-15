@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -19,12 +20,18 @@ public class BlockGreenGlacierIce extends Block{
 public BlockGreenGlacierIce(int ID){
          super(ID,Material.rock); //The ID and material
         
-         setBlockName("GreenGlacierIce"); //The incode name
+         //setBlockName("GreenGlacierIce"); //The incode name
          setHardness(1.0F); //How hard the block is
          setResistance(5.0F); //How well the block resists explosions
          setStepSound(Block.soundStoneFootstep); //The sounds the block makes
          setCreativeTab(GlacierIce.tabGlacierIce); //The tab it appears in
-         setTextureFile("/GlacierIce/GlacierIceBlocks.png"); //The texture file
+         //setTextureFile("/GlacierIce/GlacierIceBlocks.png"); //The texture file
+}
+
+@Override
+public void registerIcons(IconRegister par1IconRegister)
+{
+         this.blockIcon = par1IconRegister.registerIcon("GlacierIce:GreenGlacierIce");
 }
 
 /*public void onEntityWalking(World world, int i, int j, int k, Entity entity)
@@ -37,8 +44,8 @@ public BlockGreenGlacierIce(int ID){
  */
 public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 {
-    float var5 = 0.125F;
-    return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool((double)par2, (double)par3, (double)par4, (double)(par2 + 1), (double)((float)(par3 + 1) - var5), (double)(par4 + 1));
+    float f = 0.125F;
+    return AxisAlignedBB.getAABBPool().getAABB((double)par2, (double)par3, (double)par4, (double)(par2 + 1), (double)((float)(par3 + 1) - f), (double)(par4 + 1));
 }
 
 /**
@@ -46,7 +53,6 @@ public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, 
  */
 public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
 {
-    //par5Entity.setInWeb();
     par5Entity.fallDistance = 0.0F;
     par5Entity.motionY += 3.0;
 }
@@ -60,8 +66,8 @@ public int quantityDropped(Random random)
                         return 1;
 }
 
-@SideOnly(Side.CLIENT)
+/*@SideOnly(Side.CLIENT)
 public int getBlockTextureFromSide(int i){ //What texture it uses
 return 1;
-}
+}*/
 }

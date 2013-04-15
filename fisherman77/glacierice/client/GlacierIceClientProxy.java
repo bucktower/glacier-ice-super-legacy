@@ -5,7 +5,6 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class GlacierIceClientProxy extends GlacierIceCommonProxy {
         
 public void registerRenderInformation(){
-	MinecraftForgeClient.preloadTexture("/GlacierIce/GlacierBlocks.png");
 }
 
 }
