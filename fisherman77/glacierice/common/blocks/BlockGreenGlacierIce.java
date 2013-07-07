@@ -25,10 +25,10 @@ public BlockGreenGlacierIce(int ID){
          setResistance(5.0F); //How well the block resists explosions
          setStepSound(Block.soundStoneFootstep); //The sounds the block makes
          setCreativeTab(GlacierIce.tabGlacierIce); //The tab it appears in
-         //setTextureFile("/GlacierIce/GlacierIceBlocks.png"); //The texture file
 }
 
 @Override
+@SideOnly(Side.CLIENT)
 public void registerIcons(IconRegister par1IconRegister)
 {
          this.blockIcon = par1IconRegister.registerIcon("GlacierIce:GreenGlacierIce");

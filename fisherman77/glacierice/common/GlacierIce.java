@@ -61,8 +61,8 @@ public void PreInit(FMLPreInitializationEvent e)
 		GlacierIceConfigCore cc = new GlacierIceConfigCore();
 		GlacierIceConfigCore.loadConfig(e);
 		
-		BlueGlacierIce = new BlockBlueGlacierIce(cc.blockBlueIceID).setUnlocalizedName("BlueIce");
-		GreenGlacierIce = new BlockGreenGlacierIce(cc.blockGreenIceID).setUnlocalizedName("GreenIce");
+		BlueGlacierIce = new BlockBlueGlacierIce(cc.blockBlueIceID).setUnlocalizedName("BlueGlacierIce");
+		GreenGlacierIce = new BlockGreenGlacierIce(cc.blockGreenIceID).setUnlocalizedName("GreenGlacierIce");
 	}
 
 	
