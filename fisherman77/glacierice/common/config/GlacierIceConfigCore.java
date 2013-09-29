@@ -17,7 +17,8 @@ Configuration config = new Configuration(e.getSuggestedConfigurationFile()); //G
 config.load(); //Loads it
 
 //Block ID's
-blockBlueIceID = config.getBlock("Blue Glacier Ice ID (Keep less than 256)", 160).getInt(160);
+blockBlueIceID = config.getTerrainBlock(config.CATEGORY_BLOCK, "BlueGlacierIceID", 160, "Blue Glacier Ice ID (Keep less than 256)").getInt(160);;
+//("Blue Glacier Ice ID (Keep less than 256)", 160).getInt(160);
 blockGreenIceID = config.getBlock("Green Glacier Ice ID", 1290).getInt(1290);
 
 GlacierBiome = config.get(config.CATEGORY_GENERAL, "Glacier Biome", true).getBoolean(true);

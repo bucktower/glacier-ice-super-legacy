@@ -5,6 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -69,20 +71,21 @@ public void PreInit(FMLPreInitializationEvent e)
 @Init
 public void InitGlacierIce(FMLInitializationEvent event){ //Your main initialization method
 	
-//MULTIPLAYER ABILITY
-	NetworkRegistry.instance().registerGuiHandler(this, proxy); //Registers the class that deals with GUI data
-
-//BLOCKS (METHOD)
-	proxy.registerBlocks(); //Calls the registerBlocks method
+	//MULTIPLAYER ABILITY
+		NetworkRegistry.instance().registerGuiHandler(this, proxy); //Registers the class that deals with GUI data
 	
-//BIOME
-	if(GlacierIceConfigCore.GlacierBiome == true){
-		GlacierBiome = new BiomeGenGlacier(65);
-		GameRegistry.addBiome(GlacierBiome);
-		System.out.println("[Glacier Ice] Glacier Biome enabled.");
-	}
-	else{
-		System.out.println("[Glacier Ice] Glacier Biome not enabled.");
-	}
+	//BLOCKS (METHOD)
+		proxy.registerBlocks(); //Calls the registerBlocks method
+		
+	//BIOME
+		if(GlacierIceConfigCore.GlacierBiome == true){
+			GlacierBiome = new BiomeGenGlacier(65);
+			GameRegistry.addBiome(GlacierBiome);
+			BiomeDictionary.registerBiomeType(GlacierBiome, Type.FROZEN, Type.WASTELAND);
+			System.out.println("[Glacier Ice] Glacier Biome enabled.");
+		}
+		else{
+			System.out.println("[Glacier Ice] Glacier Biome not enabled.");
+		}
 }
 }
